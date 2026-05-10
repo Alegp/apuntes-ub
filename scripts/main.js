@@ -32,23 +32,52 @@ function filtrarNotas() {
     }
 }
 
-// Función Copiar al portapapeles
-function copyText(button) {
-    const container = button.closest('.plantilla-box');
-    const text = container.querySelector('.text-to-copy').innerText;
+// Función para cambiar de idioma en la tarjeta
+function cambiarIdioma(btn, lang) {
+    // 1. Encontrar la tarjeta (card) donde se ha hecho click
+    const card = btn.closest('.plantilla-card');
+    
+    // 2. Cambiar el atributo de idioma de la tarjeta
+    card.setAttribute('data-lang', lang);
+    
+    // 3. Actualizar los botones (quitar clase active de todos y ponerla al clickado)
+    const botones = card.querySelectorAll('.btn-lang');
+    botones.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+}
 
+// Función de copiar mejorada
+// Función de copiar respetando saltos de línea y formato
+function copyText(btn) {
+    const card = btn.closest('.plantilla-card');
+    const lang = card.getAttribute('data-lang');
+    
+    // Seleccionamos el elemento pre del idioma activo
+    const textElement = card.querySelector(`.${lang}-text`);
+    
+    // Al usar .textContent sobre un <pre> se extrae el texto respetando saltos de línea exactos
+    const text = textElement.textContent;
+    
     navigator.clipboard.writeText(text).then(() => {
-        const originalText = button.innerText;
-        button.innerText = "¡Copiado!";
-        button.style.backgroundColor = "#10b981"; // Verde
-
+        const originalText = btn.innerText;
+        btn.innerText = "¡Copiado!";
+        btn.style.backgroundColor = "#2ecc71";
+        
         setTimeout(() => {
-            button.innerText = originalText;
-            button.style.backgroundColor = "#2563eb"; // Azul original
+            btn.innerText = originalText;
+            btn.style.backgroundColor = "";
         }, 1500);
     }).catch(err => {
-        console.error('Error al copiar: ', err);
+        console.error("Error al copiar al portapapeles: ", err);
     });
+}
+
+// La función de navegación que ya tenías
+function showSection(sectionId) {
+    document.querySelectorAll('main section').forEach(section => {
+        section.classList.remove('active');
+    });
+    document.getElementById(sectionId).classList.add('active');
 }
 
 //Funcion para limpiar el buscador

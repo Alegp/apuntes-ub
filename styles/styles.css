@@ -68,15 +68,18 @@ section.active { display: block; animation: slideIn 0.3s ease-out; }
     padding: 20px;
     border-radius: 12px;
     box-shadow: var(--shadow);
+    word-break: break-word; /* <--- ESTO: Fuerza a que los textos y enlaces súper largos se rompan si no caben */
 }
 
-.plantilla-box {
-    background: #f8fafc;
-    border: 1px solid #e2e8f0;
-    padding: 15px;
-    border-radius: 8px;
-    position: relative;
-    margin-top: 10px;
+/* --- ESTILO ADICIONAL PARA ENLACES DENTRO DE LAS CARDS --- */
+.card a {
+    color: var(--primary);
+    text-decoration: underline;
+    word-break: break-all; /* Rompe enlaces largos exactamente en el límite del contenedor */
+}
+
+.card a:hover {
+    color: #1d4ed8; /* Un azul un poco más oscuro al pasar el ratón */
 }
 
 .btn-copy {
@@ -103,4 +106,71 @@ section.active { display: block; animation: slideIn 0.3s ease-out; }
 @keyframes slideIn {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- TRATAMIENTO DE IDIOMAS Y PLANTILLAS --- */
+
+/* Ocultar todos los textos de idiomas por defecto */
+.lang-content {
+    display: none !important;
+}
+
+/* Mostrar solo el idioma activo según el data-lang de su tarjeta */
+.plantilla-card[data-lang="cat"] .cat-text { display: block !important; }
+.plantilla-card[data-lang="esp"] .esp-text { display: block !important; }
+.plantilla-card[data-lang="eng"] .eng-text { display: block !important; }
+
+/* Contenedor del selector de idiomas */
+.selector-idiomas {
+    display: flex !important;
+    gap: 8px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 10px;
+}
+
+/* Botones de idiomas */
+.btn-lang {
+    padding: 6px 12px;
+    cursor: pointer;
+    border: 1px solid #cbd5e1;
+    background: #f8fafc;
+    color: #64748b;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.btn-lang:hover {
+    background: #e2e8f0;
+    color: #0f172a;
+}
+
+/* Estado activo del botón de idioma */
+.btn-lang.active {
+    background: var(--primary) !important;
+    color: white !important;
+    border-color: var(--primary) !important;
+}
+
+/* Caja contenedora del texto a copiar */
+.plantilla-box {
+    position: relative;
+    padding: 20px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    margin-top: 10px;
+    min-height: 50px;
+}
+
+/* Asegura que las etiquetas <pre> de las plantillas respeten los saltos de línea y no se desborden */
+.plantilla-box pre {
+    font-family: 'Inter', system-ui, sans-serif; /* Mantiene la misma tipografía que el resto de la web */
+    white-space: pre-wrap;       /* Respeta los saltos de línea manuales y rompe la línea automáticamente si no cabe */
+    word-wrap: break-word;       /* Evita que palabras súper largas rompan el diseño */
+    margin: 0;                   /* Quita márgenes por defecto */
+    font-size: 0.95rem;          /* Tamaño de letra cómodo */
+    color: var(--dark);          /* Mismo color que el resto del texto */
 }

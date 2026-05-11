@@ -71,6 +71,10 @@ section.active { display: block; animation: slideIn 0.3s ease-out; }
     word-break: break-word; /* <--- ESTO: Fuerza a que los textos y enlaces súper largos se rompan si no caben */
 }
 
+.plantilla-card {
+    margin-bottom: 10px;
+}
+
 /* --- ESTILO ADICIONAL PARA ENLACES DENTRO DE LAS CARDS --- */
 .card a {
     color: var(--primary);

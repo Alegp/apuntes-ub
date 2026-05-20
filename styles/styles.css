@@ -71,7 +71,7 @@ section.active { display: block; animation: slideIn 0.3s ease-out; }
     word-break: break-word; /* <--- ESTO: Fuerza a que los textos y enlaces súper largos se rompan si no caben */
 }
 
-.plantilla-card {
+.plantilla-card, .guia-item {
     margin-bottom: 10px;
 }
 
